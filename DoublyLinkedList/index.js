@@ -70,19 +70,71 @@ class DoubleLinkedList {
     }
 
     unshift(value) {
-        if (!this.head) return undefined;
+        const newHead = new Node(value)
         if (this.length === 0) {
-            this.head = null;
-            this.tail = null;
+            this.head = newHead;
+            this.tail = newHead;
         } else {
-            const newHead = new Node(value)
             const oldHead = this.head;
             newHead.next = oldHead;
             newHead.previous = null;
             this.head = newHead;
-            this.length++;
         }
-       
+        this.length++;
+    }
+
+    set(index, value) {
+        const node = this.get(index);
+        if (!node) return false;
+        node.value = value;
+        return true;
+    }
+    
+    get(index) {
+        if (index < 0 || index > this.length) { 
+            return null;
+        }
+
+        const isGreatherThanHalftOfTotal = index >= (this.length / 2)
+        if (isGreatherThanHalftOfTotal) {
+            let currentNode = this.tail
+            for (let i = this.length; i > 0; i -= 1) {
+                if (i === index) {
+                    return currentNode;
+                }
+
+                currentNode = currentNode.previous
+            }
+        } else {
+            let currentNode = this.head
+            for (let i = 0; i < this.length; i += 1) {
+                if (i === index) {
+                    return currentNode;
+                }
+
+                currentNode = currentNode.next
+            }
+        }
+    }
+
+    insert(index, value) {
+        const nodeFound = this.get(index - 1)
+        if (index === 0) {
+            this.unshift(value)
+        } else if (index === this.length) {
+            this.push(value)
+        } else if (nodeFound) {
+            const newNode = new Node(value);
+            newNode.next = nodeFound.next;
+            newNode.previous = nodeFound.next.previous;
+            nodeFound.next = newNode
+        } else {
+            return false;
+        }
+
+        
+        this.length++;
+        return true;
     }
 }
 
@@ -99,6 +151,16 @@ dll.push(3)
 
 dll.unshift(10)
 
+// dll.set(4, 1000)
 
-console.log(dll)
+dll.insert(3, 11)
+console.log(dll.head.value)
+console.log(dll.head.next.value)
+console.log(dll.head.next.next.value)
+console.log(dll.head.next.next.next.value)
+console.log(dll.head.next.next.next.next.value)
+
+
+
+
 
