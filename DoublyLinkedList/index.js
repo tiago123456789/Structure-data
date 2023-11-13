@@ -128,13 +128,34 @@ class DoubleLinkedList {
             newNode.next = nodeFound.next;
             newNode.previous = nodeFound.next.previous;
             nodeFound.next = newNode
+            this.length++
         } else {
             return false;
         }
 
-        
-        this.length++;
         return true;
+    }
+
+    remove(index) {
+        const nodeFound = this.get((index -1))
+        if (index < 0 && index >= this.length) {
+            return undefined;
+        } else if (index === 0) {
+            return this.shift();
+        } else if (index === (this.length - 1)) {
+            return this.pop();
+        }
+
+        if (nodeFound) {
+            const nodeToRemove = nodeFound.next;
+            nodeFound.next = nodeToRemove.next;
+            if (nodeFound.next) {
+                nodeFound.next.previous = nodeToRemove.previous;
+            }
+            this.length--;
+            return nodeToRemove;
+        }
+        
     }
 }
 
@@ -151,14 +172,49 @@ dll.push(3)
 
 dll.unshift(10)
 
-// dll.set(4, 1000)
-
-dll.insert(3, 11)
+// dll.insert(4, 11)
 console.log(dll.head.value)
 console.log(dll.head.next.value)
 console.log(dll.head.next.next.value)
 console.log(dll.head.next.next.next.value)
-console.log(dll.head.next.next.next.next.value)
+
+dll.remove(2)
+
+console.log("#################################")
+console.log("#################################")
+
+console.log(dll.head.value)
+console.log(dll.head.next.value)
+console.log(dll.head.next.next.value)
+
+
+// dll.remove(3)
+
+// console.log("#################################")
+// console.log("#################################")
+
+// console.log(dll.head.value)
+// console.log(dll.head.next.value)
+
+// dll.remove(1)
+
+// console.log("#################################")
+// console.log("#################################")
+
+// console.log(dll.head.value)
+// console.log(dll.head.next.value)
+
+
+// dll.remove(0)
+
+// console.log("#################################")
+// console.log("#################################")
+
+// console.log(dll.head.value)
+
+// console.log(dll.head.next.next.next.value)
+
+// console.log(dll.head.next.next.next.next.value)
 
 
 
