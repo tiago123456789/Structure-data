@@ -2,7 +2,7 @@
 // For stack you can use array structure.
 // And use both: pop() and push()
 
-// BIG O of stacks:
+// BIG O of stacks(LIFO last in fist out):
 // -> Insert O(1)
 // -> Remove O(1)
 // -> Searching O(n)
